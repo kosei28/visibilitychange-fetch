@@ -37,7 +37,7 @@
 			const data = (await res.json()) as { session?: string };
 			return data.session;
 		} catch (e) {
-			console.log(e);
+			alert(e);
 		}
 	}
 </script>

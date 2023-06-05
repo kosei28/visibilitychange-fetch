@@ -22,7 +22,11 @@ export const handle: Handle = async ({ event, resolve }) => {
 	} else if (event.url.pathname === '/session') {
 		const session = event.cookies.get('session');
 
-		console.log('session:', session);
+		if (session === undefined) {
+			return new Response(undefined, {
+				status: 401
+			});
+		}
 
 		return new Response(JSON.stringify({ session }), {
 			headers: {
