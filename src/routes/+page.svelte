@@ -8,7 +8,7 @@
 
 		window.addEventListener('visibilitychange', async () => {
 			if (document.visibilityState === 'visible') {
-				await getSession();
+				session = await getSession();
 			}
 		});
 	}
@@ -19,7 +19,7 @@
 		} else {
 			await fetch('/login');
 		}
-		await getSession();
+		session = await getSession();
 	}
 
 	async function logout() {
@@ -31,7 +31,7 @@
 		try {
 			const res = await fetch('/session');
 			const data = (await res.json()) as { session?: string };
-			session = data.session;
+			return data.session;
 		} catch (e) {
 			console.log(e);
 		}
