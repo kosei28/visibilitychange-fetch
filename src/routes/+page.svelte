@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	import { goto } from '$app/navigation';
 
 	let session: string | undefined;
 
@@ -14,8 +13,13 @@
 		});
 	}
 
-	async function login() {
-		await goto('/login');
+	async function login(secure: boolean) {
+		if (secure) {
+			await fetch('/securelogin');
+		} else {
+			await fetch('/login');
+		}
+		await getSession();
 	}
 
 	async function logout() {
@@ -40,5 +44,18 @@
 	<p>Session: {session}</p>
 	<button on:click={logout}>Logout</button>
 {:else}
-	<button on:click={login}>Login</button>
+	<button
+		on:click={() => {
+			login(false);
+		}}
+	>
+		Login
+	</button>
+	<button
+		on:click={() => {
+			login(true);
+		}}
+	>
+		Secure Login
+	</button>
 {/if}
