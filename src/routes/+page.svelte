@@ -31,13 +31,22 @@
 		session = undefined;
 	}
 
-	async function getSession() {
+	async function getSession(isRetry = false): Promise<string | undefined> {
 		try {
 			const res = await fetch('/session');
-			const data = (await res.json()) as { session?: string };
-			return data.session;
-		} catch (e) {
-			alert(e);
+			try {
+				const data = (await res.json()) as { session?: string };
+				return data.session;
+			} catch (e) {
+				console.log(e);
+				return undefined;
+			}
+		} catch {
+			if (!isRetry) {
+				return await getSession(true);
+			} else {
+				return undefined;
+			}
 		}
 	}
 </script>
