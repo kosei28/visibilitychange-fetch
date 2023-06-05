@@ -4,13 +4,17 @@
 	let session: string | undefined;
 
 	if (browser) {
-		getSession();
+		init();
 
 		window.addEventListener('visibilitychange', async () => {
 			if (document.visibilityState === 'visible') {
 				session = await getSession();
 			}
 		});
+	}
+
+	async function init() {
+		session = await getSession();
 	}
 
 	async function login(secure: boolean) {
