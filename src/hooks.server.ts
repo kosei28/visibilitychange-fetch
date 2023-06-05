@@ -7,12 +7,6 @@ export const handle: Handle = async ({ event, resolve }) => {
 				'set-cookie': 'session=123; path=/; Samesite=Lax; HttpOnly'
 			}
 		});
-	} else if (event.url.pathname === '/securelogin') {
-		return new Response(undefined, {
-			headers: {
-				'set-cookie': 'session=123; path=/; Samesite=Lax; HttpOnly; Secure'
-			}
-		});
 	} else if (event.url.pathname === '/logout') {
 		return new Response(undefined, {
 			headers: {

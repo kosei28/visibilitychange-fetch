@@ -17,12 +17,8 @@
 		session = await getSession();
 	}
 
-	async function login(secure: boolean) {
-		if (secure) {
-			await fetch('/securelogin');
-		} else {
-			await fetch('/login');
-		}
+	async function login() {
+		await fetch('/login');
 		session = await getSession();
 	}
 
@@ -59,16 +55,9 @@
 {:else}
 	<button
 		on:click={() => {
-			login(false);
+			login();
 		}}
 	>
 		Login
-	</button>
-	<button
-		on:click={() => {
-			login(true);
-		}}
-	>
-		Secure Login
 	</button>
 {/if}
